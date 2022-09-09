@@ -2,6 +2,7 @@
 
 package lesson1.task1
 
+import java.lang.Math.pow
 import kotlin.math.*
 
 // Урок 1: простые функции
@@ -74,7 +75,8 @@ fun seconds(hours: Int, minutes: Int, seconds: Int): Int = hours * 3600 + minute
  * Определить длину того же отрезка в метрах (в данном случае 18.98).
  * 1 сажень = 3 аршина = 48 вершков, 1 вершок = 4.445 см.
  */
-fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double = (sagenes * 48 + arshins * 16 + vershoks) * 4.445 / 100
+fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double =
+    (sagenes * 48 + arshins * 16 + vershoks) * 4.445 / 100
 
 /**
  * Тривиальная (1 балл)
@@ -107,7 +109,8 @@ fun thirdDigit(number: Int): Int = number / 100 % 10
  * прибыл на станцию назначения в h2 часов m2 минут того же дня (например в 13:01).
  * Определите время поезда в пути в минутах (в данном случае 216).
  */
-fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minutesArrive: Int): Int = ((hoursArrive * 60 + minutesArrive) + 1440 - (hoursDepart * 60 + minutesDepart)) % 1440
+fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minutesArrive: Int): Int =
+    ((hoursArrive * 60 + minutesArrive) + 1440 - (hoursDepart * 60 + minutesDepart)) % 1440
 
 /**
  * Простая (2 балла)
@@ -116,7 +119,11 @@ fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minute
  * Сколько денег будет на счету через 3 года (с учётом сложных процентов)?
  * Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
  */
-fun accountInThreeYears(initial: Int, percent: Int): Double = ((initial * (percent / 100.0 + 1)) * (percent / 100.0 + 1)) * (percent / 100.0 + 1)
+fun accountInThreeYears(initial: Int, percent: Int): Double {
+    val x = percent / 100.0 + 1
+    return (initial * pow(x, 3.0))
+}
+
 
 /**
  * Простая (2 балла)
