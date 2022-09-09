@@ -7,7 +7,6 @@ import lesson1.task1.sqr
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.sqrt
-import kotlin.Double.Companion as Double1
 
 // Урок 2: ветвления (здесь), логический тип (см. 2.2).
 // Максимальное количество баллов = 6
@@ -49,19 +48,19 @@ fun gradeNotation(grade: Int): String = when (grade) {
 fun minBiRoot(a: Double, b: Double, c: Double): Double {
     // 1: в главной ветке if выполняется НЕСКОЛЬКО операторов
     if (a == 0.0) {
-        if (b == 0.0) return Double1.NaN // ... и ничего больше не делать
+        if (b == 0.0) return Double.NaN // ... и ничего больше не делать
         val bc = -c / b
-        if (bc < 0.0) return Double1.NaN // ... и ничего больше не делать
+        if (bc < 0.0) return Double.NaN // ... и ничего больше не делать
         return -sqrt(bc)
         // Дальше функция при a == 0.0 не идёт
     }
     val d = discriminant(a, b, c)   // 2
-    if (d < 0.0) return Double1.NaN  // 3
+    if (d < 0.0) return Double.NaN  // 3
     // 4
     val y1 = (-b + sqrt(d)) / (2 * a)
     val y2 = (-b - sqrt(d)) / (2 * a)
     val y3 = max(y1, y2)       // 5
-    if (y3 < 0.0) return Double1.NaN // 6
+    if (y3 < 0.0) return Double.NaN // 6
     return -sqrt(y3)           // 7
 }
 
@@ -178,14 +177,22 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
-    when {
-        c !in a..b && d !in a..b -> when {
-            (c < a && d > b) -> return b - a
-            (c < a && d < b) || (c > a && d > b) -> return -1
-
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Any {
+    return when {
+        c !in a..b && d !in a..b -> {
+            if (c < a && d > b) return b - a
+            if ((c < a && d < b) || (c > a && d > b)) return -1 else TODO()
         }
-        c in
-        else -> {}
+
+        c in a..b -> {
+            if (d < b) return d - c
+            if (d > b) return b - c else TODO()
+        }
+
+        d in a..b -> {
+            if (c < a) return d - a
+            if (c > a) return d - c else TODO()
+        }
+        else -> -1
     }
 }
