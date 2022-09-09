@@ -75,8 +75,8 @@ fun ageDescription(age: Int): String {
     if (age % 10 == 1) return "$age год"
     if (age % 10 == 2) return "$age года"
     if (age % 10 == 3) return "$age года"
-    if (age % 10 == 4) return "$age года"
-    else return "$age лет"
+    return if (age % 10 == 4) "$age года"
+    else "$age лет"
 }
 
 /**
@@ -94,17 +94,15 @@ fun timeForHalfWay(
 ): Double {
     val time = 0
     val s = (t1 * v1 + t2 * v2 + t3 * v3) / 2
-    if (t1 * v1 < s) {
+    return if (t1 * v1 < s) {
         val s1 = s - t1 * v1
         val time = time + t1
         if (t2 * v2 < s1) {
             val s2 = s1 - t2 * v2
             val time = time + t2
-            return time + (s2 / v3)
-        }
-        else return time + (s1 / v2)
-    }
-    else return s / v1
+            time + (s2 / v3)
+        } else time + (s1 / v2)
+    } else s / v1
 }
 
 /**
@@ -122,10 +120,10 @@ fun whichRookThreatens(
     rookX2: Int, rookY2: Int
 ): Int {
     if (kingX == rookX1 || kingY == rookY1)
-        if (kingX == rookX2 || kingY == rookY2) return 3
-        else return 1
-    if (kingX == rookX2 || kingY == rookY2) return 2
-    else return 0
+        return if (kingX == rookX2 || kingY == rookY2) 3
+        else 1
+    return if (kingX == rookX2 || kingY == rookY2) 2
+    else 0
 }
 
 /**
@@ -144,10 +142,10 @@ fun rookOrBishopThreatens(
     bishopX: Int, bishopY: Int
 ): Int {
     if (kingX == rookX || kingY == rookY)
-        if (abs(kingX - bishopX) == abs(kingY - bishopY)) return 3
-        else return 1
-    if (abs(kingX - bishopX) == abs(kingY - bishopY)) return 2
-    else return 0
+        return if (abs(kingX - bishopX) == abs(kingY - bishopY)) 3
+        else 1
+    return if (abs(kingX - bishopX) == abs(kingY - bishopY)) 2
+    else 0
 }
 
 
@@ -160,13 +158,14 @@ fun rookOrBishopThreatens(
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
-    if (a + b > c && a + c > b && c + b > a)
-    {
+    if (a + b > c && a + c > b && c + b > a) {
         if (sqr(a) + sqr(b) == sqr(c) || sqr(c) + sqr(b) == sqr(a) || sqr(a) + sqr(c) == sqr(b)) return 1
-        if (sqr(a) + sqr(b) > sqr(c) || sqr(c) + sqr(b) > sqr(a) || sqr(a) + sqr(c) > sqr(b)) return 2
-        else return 0
-    }
-    else return -1
+        val cosA = (sqr(a) - sqr(b) - sqr(c)) / 2 * b * c
+        val cosB = (sqr(b) - sqr(a) - sqr(c)) / 2 * a * c
+        val cosC = (sqr(c) - sqr(a) - sqr(b)) / 2 * a * b
+        return if (cosA > 0 || cosB > 0 || cosC > 0) 2
+        else 0
+    } else return -1
 }
 
 /**
@@ -177,21 +176,21 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Any {
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
     return when {
         c !in a..b && d !in a..b -> {
-            if (c < a && d > b) return b - a
-            if ((c < a && d < b) || (c > a && d > b)) return -1 else TODO()
+            if (c < a && d > b) b - a
+            else -1
         }
 
         c in a..b -> {
-            if (d < b) return d - c
-            if (d > b) return b - c else TODO()
+            if (d < b) d - c
+            else b - c
         }
 
         d in a..b -> {
-            if (c < a) return d - a
-            if (c > a) return d - c else TODO()
+            if (c < a) d - a
+            else d - c
         }
 
         else -> -1
