@@ -193,6 +193,7 @@ fun segmentLength(a: Int, b: Int, c: Int, d: Int): Any {
             if (c < a) return d - a
             if (c > a) return d - c else TODO()
         }
+
         else -> -1
     }
 }
