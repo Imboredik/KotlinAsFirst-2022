@@ -278,12 +278,33 @@ fun cos(x: Double, eps: Double): Double = TODO()
  * Сложная (4 балла)
  *
  * Найти n-ю цифру последовательности из квадратов целых чисел:
- * 149162536496481100121144...
+ * 149162536496481 100121144...
  * Например, 2-я цифра равна 4, 7-я 5, 12-я 6.
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int = TODO()
+fun squareSequenceDigit(n: Int): Int {
+    var all = 0
+    var count = 0
+    for (i in 1..n) {
+        all = sqr(i)
+        while (all > 0) {
+            all /= 10
+            count++
+        }
+        while (count >= n) {
+            if (count == n) return sqr(i) % 10
+            for (q in 1..count - n) {
+                all = sqr(i) / 10
+                count--
+                return all % 10
+
+            }
+
+        }
+    }
+    return 0
+}
 /*{
     var all = 1
     all.toBigDecimal()
