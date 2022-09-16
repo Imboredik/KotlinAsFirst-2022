@@ -171,24 +171,28 @@ fun collatzSteps(x: Int): Int {
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
+
+fun isPrime2(n: Int): Boolean {
+    if (n <= 2) return false
+    if (n % 2 == 0) return false
+    for (m in 3..sqrt(n.toDouble()).toInt() step 2) {
+        if (n % m == 0) return false
+    }
+    return true
+}
+
 fun lcm(m: Int, n: Int): Int {
-    var k = max(m, n)
-    for (i in k..k * min(m, n)) {
+    val k = max(m, n)
+    if (m == n) return m
+    for (i in k..min(m, n) * k) {
         if (i % n == 0 && i % m == 0) return i
     }
     return k
 }
-
-
-
-
-
-
     //while (k % n != 0 || k % m != 0) {
       //  k += 1
     //}
     //return k
-
 
 /**
  * Средняя (3 балла)
@@ -199,11 +203,12 @@ fun lcm(m: Int, n: Int): Int {
  */
 fun isCoPrime(m: Int, n: Int): Boolean {
     var l = 0
-    for (k in max(m, n) downTo 2) {
+    for (k in max(m, n) downTo 1) {
         l = k
+        if (k == 1) break
         if (m % k == 0 && n % k == 0) return false
     }
-    return l - 1 == 1
+    return l == 1
 }
 
 /**
