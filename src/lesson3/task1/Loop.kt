@@ -3,9 +3,8 @@
 package lesson3.task1
 
 import lesson1.task1.sqr
-import kotlin.math.max
-import kotlin.math.min
-import kotlin.math.sqrt
+import kotlin.math.*
+
 
 // Урок 3: циклы
 // Максимальное количество баллов = 9
@@ -77,7 +76,7 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  */
 fun digitNumber(n: Int): Int {
     var k = 0
-    var n2 = n
+    var n2 = abs(n)
     if (n2 / 10 < 1) return 1
     while (n2 >= 1) {
         n2 /= 10
@@ -125,7 +124,7 @@ fun minDivisor(n: Int): Int {
 fun maxDivisor(n: Int): Int {
     var k = n - 1
     while (n % k != 0) {
-        k -= 1
+        k--
     }
     return k
 }
@@ -174,11 +173,22 @@ fun collatzSteps(x: Int): Int {
  */
 fun lcm(m: Int, n: Int): Int {
     var k = max(m, n)
-    while (k % n != 0 || k % m != 0) {
-        k += 1
+    for (i in k..k * min(m, n)) {
+        if (i % n == 0 && i % m == 0) return i
     }
     return k
 }
+
+
+
+
+
+
+    //while (k % n != 0 || k % m != 0) {
+      //  k += 1
+    //}
+    //return k
+
 
 /**
  * Средняя (3 балла)
