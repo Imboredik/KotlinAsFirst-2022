@@ -218,11 +218,6 @@ fun revert(n: Int): Int {
     var c = n
     var k = 0
     while (c > 0) {
-        c /= 10
-        k++
-    }
-    c = n
-    for (i in 1..k) {
         new += c % 10
         new *= 10
         c /= 10
