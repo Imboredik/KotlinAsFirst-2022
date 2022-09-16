@@ -296,11 +296,8 @@ fun squareSequenceDigit(n: Int): Int {
             if (count == n) return sqr(i) % 10
             for (q in 1..count - n) {
                 all = sqr(i) / 10
-                count--
                 return all % 10
-
             }
-
         }
     }
     return 0
