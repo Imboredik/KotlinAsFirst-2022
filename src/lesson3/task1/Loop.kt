@@ -3,6 +3,7 @@
 package lesson3.task1
 
 import lesson1.task1.sqr
+import java.lang.Math.pow
 import kotlin.math.*
 
 
@@ -111,7 +112,7 @@ fun fib(n: Int): Int {
 fun minDivisor(n: Int): Int {
     var k = 2
     while (n % k != 0) {
-        k += 1
+        k++
     }
     return k
 }
@@ -172,27 +173,15 @@ fun collatzSteps(x: Int): Int {
  * минимальное число k, которое делится и на m и на n без остатка
  */
 
-fun isPrime2(n: Int): Boolean {
-    if (n <= 2) return false
-    if (n % 2 == 0) return false
-    for (m in 3..sqrt(n.toDouble()).toInt() step 2) {
-        if (n % m == 0) return false
-    }
-    return true
-}
-
 fun lcm(m: Int, n: Int): Int {
-    val k = max(m, n)
-    if (m == n) return m
-    for (i in k..min(m, n) * k) {
-        if (i % n == 0 && i % m == 0) return i
+    var m1 = m
+    var n1 = n
+    while (n1 != m1){
+        if (m1 > n1) m1 -= n1
+        else n1 -= m1
     }
-    return k
+    return (n * m) / n1
 }
-    //while (k % n != 0 || k % m != 0) {
-      //  k += 1
-    //}
-    //return k
 
 /**
  * Средняя (3 балла)
@@ -240,7 +229,29 @@ fun revert(n: Int): Int {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean = TODO()
+fun isPalindrome(n: Int): Boolean {
+    var numb = n
+    var count = 0
+    var d = 0
+    while (numb > 0) {
+        numb /= 10
+        count++
+    }
+    numb = n
+    d = count - 1
+    if (count % 2 != 0) {
+        count = (count - 1) / 2
+    } else {
+        count /= 2
+    }
+    for (i in 1..count) {
+        if (numb % 10 == numb / (10.0.pow(d).toInt())) {
+            numb = (numb % (10.0.pow(d).toInt())) / 10
+            d -= 2
+        } else return false
+    }
+    return true
+}
 
 /**
  * Средняя (3 балла)
