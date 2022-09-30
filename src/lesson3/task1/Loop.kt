@@ -209,6 +209,7 @@ fun isCoPrime(m: Int, n: Int): Boolean {
  */
 fun revert(n: Int): Int {
     var new = 0.0
+    new.toLong()
     var c = n
     var k = 0
     while (c > 0) {
@@ -276,9 +277,7 @@ fun sin(x: Double, eps: Double): Double {
     var si = 0.0
     var v = 3
     var iter = 2
-    if ((x / PI) % 2 == 0.0) {
-        k = 2.0 * PI
-    }
+    if (x > 2 * PI) k = x - 2 * PI * (x / (2 * PI))
     var n = (k - (k.pow(v)) / factorial(v))
     while (abs(n) >= eps) {
         si += n
