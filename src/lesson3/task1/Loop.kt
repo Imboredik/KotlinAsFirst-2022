@@ -207,9 +207,8 @@ fun isCoPrime(m: Int, n: Int): Boolean {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun revert(n: Int): Int {
-    var new = 0.0
-    new.toLong()
+fun revert(n: Int): Long {
+    var new = 0L
     var c = n
     var k = 0
     while (c > 0) {
@@ -217,7 +216,7 @@ fun revert(n: Int): Int {
         new *= 10
         c /= 10
     }
-    return (new / 10).toInt()
+    return (new / 10)
 }
 
 /**
