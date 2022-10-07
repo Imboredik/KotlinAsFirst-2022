@@ -176,7 +176,7 @@ fun collatzSteps(x: Int): Int {
 fun lcm(m: Int, n: Int): Int {
     var m1 = m
     var n1 = n
-    while (n1 != m1){
+    while (n1 != m1) {
         if (m1 > n1) m1 -= n1
         else n1 -= m1
     }
@@ -207,7 +207,7 @@ fun isCoPrime(m: Int, n: Int): Boolean {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun revert(n: Int): Long {
+fun revert(n: Int): Int {
     var new = 0L
     var c = n
     var k = 0
@@ -216,7 +216,7 @@ fun revert(n: Int): Long {
         new *= 10
         c /= 10
     }
-    return (new / 10)
+    return (new / 10).toInt()
 }
 
 /**
@@ -272,11 +272,10 @@ fun hasDifferentDigits(n: Int): Boolean = TODO()
  * Использовать kotlin.math.sin и другие стандартные реализации функции синуса в этой задаче запрещается.
  */
 fun sin(x: Double, eps: Double): Double {
-    var k = x
     var si = 0.0
     var v = 3
     var iter = 2
-    if (x > 2 * PI) k = x - 2 * PI * (x / (2 * PI))
+    val k = x % (2 * PI)
     var n = (k - (k.pow(v)) / factorial(v))
     while (abs(n) >= eps) {
         si += n
@@ -355,4 +354,22 @@ fun squareSequenceDigit(n: Int): Int {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int = TODO()
+fun fibSequenceDigit(n: Int): Int {
+    var all = 0
+    var count = 0
+    var fir = 1
+    var sec = 1
+    for (i in 1..n) {
+        all = sqr(i)
+        while (all > 0) {
+            all /= 10
+            count++
+        }
+        while (count >= n) {
+            if (count == n) return sqr(i) % 10
+            all = (sqr(i) / 10.0.pow((count - n).toDouble())).toInt()
+            return all % 10
+        }
+    }
+    return 0
+}

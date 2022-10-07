@@ -193,7 +193,7 @@ class Tests {
     @Test
     @Tag("4")
     fun sin() {
-        assertEquals(0.0, sin(0.0, 1e-5), 1e-5)
+        assertEquals(0.017452406459518247, sin(-18.832102629018816, 1e-10), 1e-10)
         assertEquals(1.0, sin(PI / 2.0, 1e-5), 1e-5)
         assertEquals(0.0, sin(PI, 1e-5), 1e-5)
         assertEquals(-1.0, sin(3.0 * PI / 2.0, 1e-5), 1e-5)
