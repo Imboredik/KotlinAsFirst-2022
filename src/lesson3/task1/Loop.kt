@@ -318,10 +318,8 @@ fun squareSequenceDigit(n: Int): Int {
         }
         while (count >= n) {
             if (count == n) return sqr(i) % 10
-            for (q in 1..count - n) {
-                all = sqr(i) / 10
-                return all % 10
-            }
+            all = (sqr(i) / 10.0.pow((count - n).toDouble())).toInt()
+            return all % 10
         }
     }
     return 0
