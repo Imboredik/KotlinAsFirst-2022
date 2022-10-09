@@ -360,6 +360,7 @@ fun fibSequenceDigit(n: Int): Int {
     var last = 2
     var beg = 2
     if (n < 3) return 1
+    if (n == 3) return 2
     for (i in 1..n) {
         var all = last
         last += fir
