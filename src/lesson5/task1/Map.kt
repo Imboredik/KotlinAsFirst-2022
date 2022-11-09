@@ -154,7 +154,22 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = TODO()
  *     mapOf("Emergency" to "911", "Police" to "02")
  *   ) -> mapOf("Emergency" to "112, 911", "Police" to "02")
  */
-fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> = TODO()
+fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
+    var fin = mutableMapOf<String, String>()
+    val list = mutableMapOf<String, String>()
+    val gg = (mapB + mapA)
+    fin = (fin + gg) as MutableMap<String, String>
+    for ((name, phone) in gg) {
+        if (mapB.getOrDefault(name, "u") != phone) {
+            mapB[name]?.let { list.put(name, it) }
+        }
+    }
+    for ((name, phone) in list) {
+        val phones = Pair(name, fin[name] + ", " + phone)
+        fin = (gg + phones) as MutableMap<String, String>
+    }
+    return fin
+}
 
 /**
  * Средняя (4 балла)
