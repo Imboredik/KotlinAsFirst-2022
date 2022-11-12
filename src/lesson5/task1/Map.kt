@@ -162,7 +162,7 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
     val gg = (mapB + mapA)
     fin = (fin + gg) as MutableMap<String, String>
     for ((name, phone) in gg) {
-        if (mapB.getOrDefault(name, "u") != phone) {
+        if (mapB.getOrDefault(name, "Ё") != phone) {
             mapB[name]?.let { list.put(name, it) }
         }
     }
@@ -329,7 +329,8 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
  *     450
  *   ) -> emptySet()
  */
-fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> {
+fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> = TODO()
+/*{
     val ma = mutableListOf<String>("n", "-1")
     val fin = mutableListOf<String>("q", "q", "-1")
     val names = mutableListOf<String>()
@@ -373,3 +374,4 @@ fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<Strin
     bag.addAll(fin)
     return bag
 }
+*/
