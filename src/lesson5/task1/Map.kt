@@ -2,6 +2,8 @@
 
 package lesson5.task1
 
+import ru.spbstu.wheels.queue
+
 // Урок 5: ассоциативные массивы и множества
 // Максимальное количество баллов = 14
 // Рекомендуемое количество баллов = 9
@@ -315,4 +317,47 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> = TODO()
  *     450
  *   ) -> emptySet()
  */
-fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> = TODO()
+fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> {
+    val ma = mutableListOf<String>("n", "1")
+    val fin = mutableListOf<String>("q", "q", "2")
+    val names = mutableListOf<String>()
+    val bag = mutableSetOf<String>()
+    val new = treasures.toMutableMap()
+    for ((name, info) in treasures) {
+        val (weight, cash) = info
+        if (weight > capacity) {
+            new.remove(name)
+        } else {
+            names += name
+            if (cash > ma[1].toInt()) {
+                ma[0] = name
+                ma[1] = cash.toString()
+            }
+        }
+    }
+    if (new.isEmpty()) {
+        return bag
+    }
+    val times = new - names[0]
+    for ((name, info) in new) {
+        val (weight, cash) = info
+        for ((name2, info2) in times) {
+            val (weight2, cash2) = info2
+            val f = weight + weight2
+            val b = fin[2].toInt()
+            if (f in (b + 1)..capacity) {
+                fin[0] = name
+                fin[1] = name2
+                fin[2] = (f).toString()
+            } else break
+        }
+    }
+    if (fin[0] == "q") {
+        ma.removeLast().toSet()
+        bag.addAll(ma)
+        return bag
+    }
+    fin.removeLast().toSet()
+    bag.addAll(fin)
+    return bag
+}
