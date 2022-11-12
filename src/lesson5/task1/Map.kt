@@ -162,7 +162,7 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
     val gg = (mapB + mapA)
     fin = (fin + gg) as MutableMap<String, String>
     for ((name, phone) in gg) {
-        if (mapB.getOrDefault(name, "э") != phone) {
+        if (mapB.getOrDefault(name, "Ъ") != phone) {
             mapB[name]?.let { list.put(name, it) }
         }
     }
