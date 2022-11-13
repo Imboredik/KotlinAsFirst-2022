@@ -262,12 +262,12 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  */
 fun roman(n: Int): String {
     val numb = listOf(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
-    val bukv = listOf("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
+    val buck = listOf("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
     var fin = String()
     var num = n
     for (i in 0..12) {
         while (num >= numb[i]) {
-            fin += bukv[i]
+            fin += buck[i]
             num -= numb[i]
         }
     }
@@ -281,4 +281,64 @@ fun roman(n: Int): String {
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String = TODO()
+fun russian(n: Int): String {
+    var res = ""
+    if (n >= 1000) {
+        res += th(n / 1000, true)
+        val k = n / 1000 % 100
+        res = res.plus(
+            when {
+                (k in 11..19 || k % 10 in 5..9 || k % 10 == 0) -> "тысяч "
+                (k % 10 == 1) -> "тысяча "
+                else -> "тысячи "
+            }
+        )
+        res += th(n % 1000, false)
+    } else res += th(n, false)
+    return res.trim()
+}
+//52 мс
+fun th(n: Int, t: Boolean): String {
+    val ed = listOf("один ", "два ", "три ", "четыре ",
+        "пять ", "шесть ", "семь ", "восемь ", "девять ")
+    val des = listOf("десять ", "двадцать ", "тридцать ", "сорок ", "пятьдесят ",
+        "шестьдесят ", "семьдесят ", "восемьдесят ", "девяносто ")
+    val sot = listOf("сто ", "двести ", "триста ", "четыреста ", "пятьсот ",
+        "шестьсот ", "семьсот ", "восемьсот ", "девятьсот ")
+    val is1 = listOf("одиннадцать ", "двенадцать ", "тринадцать ", "четырнадцать ",
+        "пятнадцать ", "шестнадцать ", "семьнадцать ", "восемьнадцать ", "девятнадцать ")
+    var res = ""
+    res = res.plus(
+        if (n / 100 in 1..9) {
+            sot[n / 100 - 1]
+        } else ""
+    )
+    if ((10 < n % 100) && (20 > n % 100)) {
+        res = res.plus(
+            if (n % 100 in 11..19) {
+                is1[n % 100 - 11]
+            } else ""
+        )
+    } else {
+        res = res.plus(
+            if (n % 100 / 10 in 1..9) {
+                des[n % 100 / 10 - 1]
+            } else ""
+        )
+        res = res.plus(
+            when (n % 10) {
+                1 -> if (t) "одна " else "один "
+                2 -> if (t) "две " else "два "
+                3 -> "три "
+                4 -> "четыре "
+                5 -> "пять "
+                6 -> "шесть "
+                7 -> "семь "
+                8 -> "восемь "
+                9 -> "девять "
+                else -> ""
+            }
+        )
+    }
+    return res
+}
