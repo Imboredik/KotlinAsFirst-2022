@@ -2,6 +2,7 @@
 
 package lesson5.task1
 
+import kotlinx.html.VAR
 import ru.spbstu.wheels.queue
 
 // Урок 5: ассоциативные массивы и множества
@@ -200,7 +201,20 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
  *     "печенье"
  *   ) -> "Мария"
  */
-fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? = TODO()
+fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? {
+    var answ: String? = null
+    var c = 9999999999999.9
+    for ((name, info) in stuff) {
+        val (type, cost) = info
+        if (type == kind) {
+            if (cost < c) {
+                answ = name
+                c = cost
+            }
+        }
+    }
+    return answ
+}
 
 /**
  * Средняя (3 балла)
