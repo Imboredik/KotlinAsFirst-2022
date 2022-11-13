@@ -159,7 +159,13 @@ fun center(list: MutableList<Double>): MutableList<Double> {
  * представленные в виде списков a и b. Скалярное произведение считать по формуле:
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.
  */
-fun times(a: List<Int>, b: List<Int>): Int = TODO()
+fun times(a: List<Int>, b: List<Int>): Int {
+    var c = 0
+    if (a.isNotEmpty() and b.isNotEmpty()) {
+        for (i in a.indices) c += a[i] * b[i]
+    }
+    return c
+}
 
 /**
  * Средняя (3 балла)
@@ -254,7 +260,19 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
-fun roman(n: Int): String = TODO()
+fun roman(n: Int): String {
+    val numb = listOf(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
+    val bukv = listOf("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
+    var fin = String()
+    var num = n
+    for (i in 0..12) {
+        while (num >= numb[i]) {
+            fin += bukv[i]
+            num -= numb[i]
+        }
+    }
+    return fin
+}
 
 /**
  * Очень сложная (7 баллов)
