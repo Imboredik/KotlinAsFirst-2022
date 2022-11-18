@@ -166,7 +166,7 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
     }
     for ((name, phone) in list) {
         val phones = Pair(name, fin[name] + ", " + phone)
-        fin = (gg + phones) as MutableMap<String, String>
+        fin = (gg + phones).toMutableMap()
     }
     return fin
 }
