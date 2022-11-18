@@ -2,8 +2,6 @@
 
 package lesson5.task1
 
-import kotlinx.html.VAR
-import ru.spbstu.wheels.queue
 
 // Урок 5: ассоциативные массивы и множества
 // Максимальное количество баллов = 14
@@ -158,12 +156,11 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = TODO()
  *   ) -> mapOf("Emergency" to "112, 911", "Police" to "02")
  */
 fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
-    var fin = mutableMapOf<String, String>()
     val list = mutableMapOf<String, String>()
     val gg = (mapB + mapA)
-    fin = (fin + gg) as MutableMap<String, String>
+    var fin = gg.toMutableMap()
     for ((name, phone) in gg) {
-        if (mapB.getOrDefault(name, "Ъ") != phone) {
+        if (mapB.getOrDefault(name, "null") != phone) {
             mapB[name]?.let { list.put(name, it) }
         }
     }
