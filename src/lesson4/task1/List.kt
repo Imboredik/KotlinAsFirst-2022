@@ -161,7 +161,7 @@ fun center(list: MutableList<Double>): MutableList<Double> {
  */
 fun times(a: List<Int>, b: List<Int>): Int {
     var c = 0
-    if (a.isNotEmpty() and b.isNotEmpty()) {
+    if (a.isNotEmpty() && b.isNotEmpty()) {
         for (i in a.indices) c += a[i] * b[i]
     }
     return c
@@ -263,11 +263,11 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
 fun roman(n: Int): String {
     val numb = listOf(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
     val buck = listOf("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
-    var fin = String()
     var num = n
-    for (i in 0..12) {
+    var fin = String()
+    for (i in numb.indices) {
         while (num >= numb[i]) {
-            fin += buck[i]
+            fin += buildString { append(buck[i]) }
             num -= numb[i]
         }
     }
@@ -289,7 +289,7 @@ fun russian(n: Int): String {
         res = res.plus(
             when {
                 (k in 11..19 || k % 10 in 5..9 || k % 10 == 0) -> "тысяч "
-                (k % 10 == 1) -> "тысяча "
+                k % 10 == 1 -> "тысяча "
                 else -> "тысячи "
             }
         )
