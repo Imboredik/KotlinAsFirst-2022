@@ -267,7 +267,10 @@ fun roman(n: Int): String {
     var fin = String()
     for (i in numb.indices) {
         while (num >= numb[i]) {
-            fin += buildString { append(buck[i]) }
+            fin = buildString {
+                append(fin)
+                append(buck[i])
+            }
             num -= numb[i]
         }
     }
