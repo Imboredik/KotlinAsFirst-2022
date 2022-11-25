@@ -312,12 +312,14 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
+    var k = 0
     if (list.isNotEmpty()) {
         for (i in list.indices) {
+            k++
             val sec = list[i]
             val cut = list.subList(i + 1, list.size)
             if (number - sec in cut) {
-                return list.indexOf(sec) to cut.indexOf(number - sec) + 1
+                return list.indexOf(sec) to cut.indexOf(number - sec) + k
             }
         }
     }
