@@ -3,6 +3,7 @@
 package lesson4.task1
 
 import lesson1.task1.discriminant
+import java.lang.StringBuilder
 import kotlin.math.sqrt
 
 // Урок 4: списки
@@ -262,17 +263,15 @@ fun roman(n: Int): String {
     val numb = listOf(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
     val buck = listOf("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
     var num = n
-    var fin = String()
+    val fin = StringBuilder()
     for (i in numb.indices) {
-        while (num >= numb[i]) {
-            fin = buildString {
-                append(fin)
-                append(buck[i])
-            }
-            num -= numb[i]
+        val buff = numb[i]
+        while (num >= buff) {
+            fin.append(buck[i])
+            num -= buff
         }
     }
-    return fin
+    return fin.toString()
 }
 
 /**
@@ -283,22 +282,22 @@ fun roman(n: Int): String {
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
 fun russian(n: Int): String {
-    var res = ""
+    var res = StringBuilder()
     if (n >= 1000) {
-        res += th(n / 1000, true)
+        res.append(th(n / 1000, true))
         val k = n / 1000 % 100
-        res = res.plus(
+        res = res.append(
             when {
-                (k in 11..19 || k % 10 in 5..9 || k % 10 == 0) -> "тысяч "
+                k in 11..19 || k % 10 in 5..9 || k % 10 == 0 -> "тысяч "
                 k % 10 == 1 -> "тысяча "
                 else -> "тысячи "
             }
         )
-        res += th(n % 1000, false)
-    } else res += th(n, false)
-    return res.trim()
+        res.append(th(n % 1000, false))
+    } else res.append(th(n, false))
+    return res.trim().toString()
 }
-//52 мс
+//45 мс
 fun th(n: Int, t: Boolean): String {
     val des = listOf("десять ", "двадцать ", "тридцать ", "сорок ", "пятьдесят ",
         "шестьдесят ", "семьдесят ", "восемьдесят ", "девяносто ")
@@ -306,25 +305,25 @@ fun th(n: Int, t: Boolean): String {
         "шестьсот ", "семьсот ", "восемьсот ", "девятьсот ")
     val is1 = listOf("одиннадцать ", "двенадцать ", "тринадцать ", "четырнадцать ",
         "пятнадцать ", "шестнадцать ", "семнадцать ", "восемнадцать ", "девятнадцать ")
-    var res = ""
-    res = res.plus(
+    var res = StringBuilder()
+    res = res.append(
         if (n / 100 in 1..9) {
             sot[n / 100 - 1]
         } else ""
     )
     if ((10 < n % 100) && (20 > n % 100)) {
-        res = res.plus(
+        res = res.append(
             if (n % 100 in 11..19) {
                 is1[n % 100 - 11]
             } else ""
         )
     } else {
-        res = res.plus(
+        res = res.append(
             if (n % 100 / 10 in 1..9) {
                 des[n % 100 / 10 - 1]
             } else ""
         )
-        res = res.plus(
+        res = res.append(
             when (n % 10) {
                 1 -> if (t) "одна " else "один "
                 2 -> if (t) "две " else "два "
@@ -339,5 +338,5 @@ fun th(n: Int, t: Boolean): String {
             }
         )
     }
-    return res
+    return res.toString()
 }
