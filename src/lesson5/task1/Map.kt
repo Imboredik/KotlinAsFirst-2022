@@ -3,6 +3,7 @@
 package lesson5.task1
 
 
+
 // Урок 5: ассоциативные массивы и множества
 // Максимальное количество баллов = 14
 // Рекомендуемое количество баллов = 9
@@ -160,7 +161,7 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
     val gg = (mapB + mapA)
     var fin = gg.toMutableMap()
     for ((name, phone) in gg) {
-        if (mapB.getOrDefault(name, "null") != phone) {
+        if (mapB[name] != phone) { //тогда пойду по простому пути)
             mapB[name]?.let { list.put(name, it) }
         }
     }
@@ -312,6 +313,19 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
+    val mx = mutableMapOf<Int, Int>()
+    if (list.isNotEmpty()) {
+        for (i in list.indices) {
+            val buff = mx[number - list[i]]
+            if (buff != null) {
+                return buff.toInt() to i
+            } else mx[list[i]] = i
+        }
+    }
+    return -1 to -1
+}
+
+/*{
     var k = 0
     if (list.isNotEmpty()) {
         for (i in list.indices) {
@@ -324,7 +338,7 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
         }
     }
     return -1 to -1
-}
+}*/
 
 /**
  * Очень сложная (8 баллов)
