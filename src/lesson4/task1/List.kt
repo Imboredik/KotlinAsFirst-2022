@@ -282,11 +282,11 @@ fun roman(n: Int): String {
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
 fun russian(n: Int): String {
-    var res = StringBuilder()
+    val res = StringBuilder()
     if (n >= 1000) {
         res.append(th(n / 1000, true))
         val k = n / 1000 % 100
-        res = res.append(
+        res.append(
             when {
                 k in 11..19 || k % 10 in 5..9 || k % 10 == 0 -> "тысяч "
                 k % 10 == 1 -> "тысяча "
@@ -297,7 +297,7 @@ fun russian(n: Int): String {
     } else res.append(th(n, false))
     return res.trim().toString()
 }
-//45 мс
+//54 мс
 fun th(n: Int, t: Boolean): String {
     val des = listOf("десять ", "двадцать ", "тридцать ", "сорок ", "пятьдесят ",
         "шестьдесят ", "семьдесят ", "восемьдесят ", "девяносто ")
@@ -305,25 +305,25 @@ fun th(n: Int, t: Boolean): String {
         "шестьсот ", "семьсот ", "восемьсот ", "девятьсот ")
     val is1 = listOf("одиннадцать ", "двенадцать ", "тринадцать ", "четырнадцать ",
         "пятнадцать ", "шестнадцать ", "семнадцать ", "восемнадцать ", "девятнадцать ")
-    var res = StringBuilder()
-    res = res.append(
+    val res = StringBuilder()
+    res.append(
         if (n / 100 in 1..9) {
             sot[n / 100 - 1]
         } else ""
     )
     if ((10 < n % 100) && (20 > n % 100)) {
-        res = res.append(
+        res.append(
             if (n % 100 in 11..19) {
                 is1[n % 100 - 11]
             } else ""
         )
     } else {
-        res = res.append(
+        res.append(
             if (n % 100 / 10 in 1..9) {
                 des[n % 100 / 10 - 1]
             } else ""
         )
-        res = res.append(
+        res.append(
             when (n % 10) {
                 1 -> if (t) "одна " else "один "
                 2 -> if (t) "две " else "два "
