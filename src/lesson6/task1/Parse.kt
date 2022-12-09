@@ -2,6 +2,8 @@
 
 package lesson6.task1
 
+import java.lang.StringBuilder
+
 // Урок 6: разбор строк, исключения
 // Максимальное количество баллов = 13
 // Рекомендуемое количество баллов = 11
@@ -127,7 +129,20 @@ fun dateDigitToStr(digital: String): String = TODO()
  *
  * PS: Дополнительные примеры работы функции можно посмотреть в соответствующих тестах.
  */
-fun flattenPhoneNumber(phone: String): String = TODO()
+fun flattenPhoneNumber(phone: String): String {
+    val fin = StringBuilder()
+    if (Regex("""[^+|0-9|\s|\-|(|)]""").find(phone)?.value == null) {
+        if (Regex("""\(\)""").find(phone)?.value == null) {
+            for (i in phone) {
+                if (i.toString() == "+" || i.toString().contains(Regex("""\d"""))) {
+                    fin.append(i)
+                }
+            }
+        }
+    }
+    return fin.toString()
+}
+
 
 /**
  * Средняя (5 баллов)
