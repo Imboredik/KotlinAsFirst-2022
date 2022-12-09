@@ -74,8 +74,33 @@ fun main() {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
-fun dateStrToDigit(str: String): String = TODO()
+fun dateStrToDigit(str: String): String {
+    val year = Regex("""\d+$""").find(str)?.value
+    val month = Regex("""\W+""").find(str)?.value
+    val day = Regex("""^\d{1,2}""").find(str)?.value
+    if (year != null && month != null && day != null) {
+        return monthToNumb(year.toInt(), month.toString().trim(), day.toInt())
+    }
+    return ""
+}
 
+fun monthToNumb(y: Int, m: String, d: Int): String {
+    val month = mapOf<String, Pair<String, Int>>(
+        "января" to Pair("1", 31), "февраля" to Pair("2", 29), "марта" to Pair("3", 31),
+        "апреля" to Pair("4", 30), "мая" to Pair("5", 31), "июня" to Pair("6", 30),
+        "июля" to Pair("7", 31), "августа" to Pair("8", 31), "сентября" to Pair("9", 30),
+        "октября" to Pair("10", 31), "ноября" to Pair("11", 30), "декабря" to Pair("12", 31),
+    )
+    val b = month[m]
+    if (b != null && d <= b.second) {
+        val mth = b.first
+        if (m == "февраля" && !((y % 4 == 0 && y % 100 != 0) || y % 400 == 0) && d > 28) {
+            return ""
+        }
+        return String.format("%02d.%02d.%d", d, mth.toInt(), y)
+    }
+    return ""
+}
 /**
  * Средняя (4 балла)
  *
