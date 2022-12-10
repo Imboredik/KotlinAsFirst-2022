@@ -2,7 +2,8 @@
 
 package lesson6.task1
 
-import java.lang.StringBuilder
+
+import kotlin.text.StringBuilder
 
 // Урок 6: разбор строк, исключения
 // Максимальное количество баллов = 13
@@ -131,7 +132,7 @@ fun dateDigitToStr(digital: String): String = TODO()
  */
 fun flattenPhoneNumber(phone: String): String {
     val fin = StringBuilder()
-    if (Regex("""[^+|0-9|\s|\-|(|)]""").find(phone)?.value == null) {
+    if (Regex("""[^+0-9\s\-()]""").find(phone)?.value == null) {
         if (Regex("""\(\)""").find(phone)?.value == null) {
             for (i in phone) {
                 if (i.toString() == "+" || i.toString().contains(Regex("""\d"""))) {
@@ -167,7 +168,21 @@ fun bestLongJump(jumps: String): Int = TODO()
  * При нарушении формата входной строки, а также в случае отсутствия удачных попыток,
  * вернуть -1.
  */
-fun bestHighJump(jumps: String): Int = TODO()
+fun bestHighJump(jumps: String): Int {
+    var score = jumps
+    var max = -1
+    if (Regex("""[^\d\s+%-]""").find(jumps)?.value == null){
+        var gg = Regex("""\d*(?=\s\+)""").find(score)?.value
+        while (gg != null) {
+            if (gg.toInt() > max) {
+                max = gg.toInt()
+            }
+            score = score.replace(gg.toString(), "")
+            gg = Regex("""\d+(?=\s\+)""").find(score)?.value
+        }
+    }
+    return max
+}
 
 /**
  * Сложная (6 баллов)
