@@ -192,9 +192,20 @@ fun bestHighJump(jumps: String): Int {
  * Вернуть значение выражения (6 для примера).
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
+//([^\d\s+-]|(?<!\d|\s)\d|\d(?!\d|\s))
 fun plusMinus(expression: String): Int = TODO()
+/*{
+    if (Regex("""([^\d\s+-]|(?<!(\d\s))[-+]|[-+](?!(\s\d)))""").find(expression) == null) {
+        var answ = Regex("""^\d+""").find(expression)?.value?.toInt()
 
-fun errThrow() {
+        Regex("""""")
+    }
+    throw errThrow()
+    return 1
+}
+*/
+
+fun errThrow(): Throwable {
     throw IllegalArgumentException()
 }
 /**
