@@ -3,6 +3,7 @@
 package lesson6.task1
 
 
+import ru.spbstu.wheels.tryEx
 import kotlin.text.StringBuilder
 
 // Урок 6: разбор строк, исключения
@@ -132,12 +133,10 @@ fun dateDigitToStr(digital: String): String = TODO()
  */
 fun flattenPhoneNumber(phone: String): String {
     val fin = StringBuilder()
-    if (Regex("""[^+0-9\s\-()]""").find(phone)?.value == null) {
-        if (Regex("""\(\)""").find(phone)?.value == null) {
-            for (i in phone) {
-                if (i.toString() == "+" || i.toString().contains(Regex("""\d"""))) {
-                    fin.append(i)
-                }
+    if (Regex("""([^+0-9\s\-()]|\(\))""").find(phone)?.value == null) {
+        for (i in phone) {
+            if (i.toString() == "+" || i.toString().contains(Regex("""\d"""))) {
+                fin.append(i)
             }
         }
     }
@@ -195,6 +194,9 @@ fun bestHighJump(jumps: String): Int {
  */
 fun plusMinus(expression: String): Int = TODO()
 
+fun errThrow() {
+    throw IllegalArgumentException()
+}
 /**
  * Сложная (6 баллов)
  *
