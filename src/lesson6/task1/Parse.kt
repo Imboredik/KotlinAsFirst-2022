@@ -177,7 +177,7 @@ fun bestHighJump(jumps: String): Int {
             if (gg.toInt() > max) {
                 max = gg.toInt()
             }
-            score = score.replace(gg.toString(), "")
+            score = score.replace(gg.toString(), "") //Возможно ли это делать со StringBuilder-ом, убирать из него элементы?
             gg = Regex("""\d+(?=\s\+)""").find(score)?.value
         }
     }
