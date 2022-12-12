@@ -89,16 +89,16 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
     val fin = mutableMapOf<String, Int>()
     for (i in substrings) fin[i] = 0
     for (line in File(inputName).readLines()) {
-        all.append(line.toLowerCase() + Regex("\\n"))
+        all.append(line.lowercase() + Regex("\\n"))
     }
     val buff = all.toString()
     for (i in substrings) {
-        while (all.indexOf(i.toLowerCase()) >= 0) {
-            val b = all.indexOf(i.toLowerCase())
+        while (all.indexOf(i.lowercase()) >= 0) {
+            val b = all.indexOf(i.lowercase())
             fin[i] = fin[i]!! + 1
             if (i.length > 1) {
-                all.delete(0, all.indexOf(i.toLowerCase()) + i.length - 1)
-            } else all.delete(0, all.indexOf(i.toLowerCase()) + i.length)
+                all.delete(0, all.indexOf(i.lowercase()) + i.length - 1)
+            } else all.delete(0, all.indexOf(i.lowercase()) + i.length)
         }
         all.clear()
         all.append(buff)
@@ -173,7 +173,9 @@ fun centerFile(inputName: String, outputName: String) {
  * 8) Если входной файл удовлетворяет требованиям 1-7, то он должен быть в точности идентичен выходному файлу
  */
 fun alignFileByWidth(inputName: String, outputName: String) {
-    TODO()
+    val writer = File(outputName).bufferedWriter()
+    for (line in File(inputName).readLines())
+
 }
 
 /**
