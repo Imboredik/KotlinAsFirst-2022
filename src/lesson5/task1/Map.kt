@@ -158,18 +158,17 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = TODO()
  */
 fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
     val list = mutableMapOf<String, String>()
-    val gg = (mapB + mapA)
-    var fin = gg.toMutableMap()
+    val gg = (mapB + mapA).toMutableMap()
     for ((name, phone) in gg) {
         if (mapB[name] != phone) { //тогда пойду по простому пути)
             mapB[name]?.let { list.put(name, it) }
         }
     }
     for ((name, phone) in list) {
-        val phones = Pair(name, fin[name] + ", " + phone)
-        fin = (gg + phones).toMutableMap()
+        val phones = Pair(name, gg[name] + ", " + phone)
+        gg[name] = gg[name] + ", " + phone
     }
-    return fin
+    return gg
 }
 
 /**
@@ -317,7 +316,7 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
     for (i in list.indices) {
         val buff = mx[number - list[i]]
         if (buff != null) {
-            return buff.toInt() to i
+            return buff to i
         } else mx[list[i]] = i
     }
     return -1 to -1
