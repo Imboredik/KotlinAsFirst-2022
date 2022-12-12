@@ -2,7 +2,9 @@
 
 package lesson7.task1
 
+import ru.spbstu.wheels.out
 import java.io.File
+import java.lang.StringBuilder
 
 // Урок 7: работа с файлами
 // Урок интегральный, поэтому его задачи имеют сильно увеличенную стоимость
@@ -65,7 +67,7 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
 fun deleteMarked(inputName: String, outputName: String) {
     val writer = File(outputName).bufferedWriter()
     for (line in File(inputName).readLines()) {
-        if (Regex("^(_.+)").find(line) == null) {
+        if (Regex("^(_.*)").find(line) == null) {
             writer.write(line)
             writer.newLine()
         }
@@ -82,7 +84,27 @@ fun deleteMarked(inputName: String, outputName: String) {
  * Регистр букв игнорировать, то есть буквы е и Е считать одинаковыми.
  *
  */
-fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> = TODO()
+fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
+    val all = StringBuilder()
+    val fin = mutableMapOf<String, Int>()
+    for (i in substrings) fin[i] = 0
+    for (line in File(inputName).readLines()) {
+        all.append(line.toLowerCase() + Regex("\\n"))
+    }
+    val buff = all.toString()
+    for (i in substrings) {
+        while (all.indexOf(i.toLowerCase()) >= 0) {
+            val b = all.indexOf(i.toLowerCase())
+            fin[i] = fin[i]!! + 1
+            if (i.length > 1) {
+                all.delete(0, all.indexOf(i.toLowerCase()) + i.length - 1)
+            } else all.delete(0, all.indexOf(i.toLowerCase()) + i.length)
+        }
+        all.clear()
+        all.append(buff)
+    }
+    return fin
+}
 
 
 /**
