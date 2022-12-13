@@ -2,7 +2,6 @@
 
 package lesson7.task1
 
-import ru.spbstu.wheels.out
 import java.io.File
 import java.lang.StringBuilder
 
@@ -101,9 +100,8 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
     val buff = all.toString()
     for (i in list) {
         while (all.indexOf(i.lowercase()) >= 0) {
-            val b = all.indexOf(i.lowercase())
             fin[i] = fin[i]!! + 1
-            if (i.length > 2) {
+            if (i.length >= 2) {
                 all.delete(0, all.indexOf(i.lowercase()) + i.length - 1)
             } else all.delete(0, all.indexOf(i.lowercase()) + i.length)
         }
