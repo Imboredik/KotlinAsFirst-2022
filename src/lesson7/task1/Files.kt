@@ -181,6 +181,10 @@ fun centerFile(inputName: String, outputName: String) {
 fun alignFileByWidth(inputName: String, outputName: String) {
     var c = 0
     var maxLen = 0
+    var count = 0
+    var ll = 0
+    var b = 0
+    val st = StringBuilder()
     val line = mutableListOf<String>()
     val writer = File(outputName).bufferedWriter()
     File(inputName).forEachLine {
@@ -188,13 +192,14 @@ fun alignFileByWidth(inputName: String, outputName: String) {
     }
     File(inputName).forEachLine {
         line.clear()
-        line += (it.replace(Regex("(\\s)\\s+"), " ").trim()).split(" ")
+        st.clear()
+        st.append(it.replace(Regex("(\\s)\\s+"), " ").trim())
+        line += st.split(" ")
         if (line.count() > 1) {
-            val ll = line.count() - 1
+            ll = line.count() - 1
             c += ll
-            val b = (maxLen - it.replace(Regex("(\\s)\\s+"), " ").trim().length + ll)
-            val step = b / ll
-            var count = b % ll
+            b = (maxLen - st.length + ll)
+            count += b % ll
             for (i in line) {
                 if (c > 0) {
                     writer.write(i + " ".repeat(b / ll))
