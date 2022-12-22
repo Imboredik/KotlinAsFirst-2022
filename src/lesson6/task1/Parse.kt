@@ -167,16 +167,17 @@ fun bestLongJump(jumps: String): Int = TODO()
  * При нарушении формата входной строки, а также в случае отсутствия удачных попыток,
  * вернуть -1.
  */
+//\d+(?=\s\+|\s\W\+\W)   [+%-](?=\d)
 fun bestHighJump(jumps: String): Int {
     var score = jumps
     var max = -1
-    if (Regex("""[^\d\s+%-]""").find(jumps)?.value == null){
-        var gg = Regex("""\d*(?=\s\+)""").find(score)?.value
+    if (Regex("""[^\d\s+%\-]|(?<=\d)[+%-]|[+%-](?=\d)""").find(jumps)?.value == null) {
+        var gg = Regex("""\d+(?=\s\+|\s\W\+\W)""").find(score)?.value
         while (gg != null) {
             if (gg.toInt() > max) {
                 max = gg.toInt()
             }
-            score = score.replace(gg.toString(), "") //Возможно ли это делать со StringBuilder-ом, убирать из него элементы?
+            score = score.replace(gg.toString(), "")
             gg = Regex("""\d+(?=\s\+)""").find(score)?.value
         }
     }
