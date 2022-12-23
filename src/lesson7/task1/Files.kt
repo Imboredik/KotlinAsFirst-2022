@@ -92,18 +92,17 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
             list.add(i)
             fin[i] = 0
         }
-
     }
-    for (line in File(inputName).readLines()) {
-        all.append(line.lowercase() + Regex("\\n"))
+    File(inputName).forEachLine() {
+        all.append(it.lowercase() + "\n")
     }
     val buff = all.toString()
     for (i in list) {
         while (all.indexOf(i.lowercase()) >= 0) {
             fin[i] = fin[i]!! + 1
             if (i.length >= 2) {
-                all.delete(0, all.indexOf(i.lowercase()) + i.length - 1)
-            } else all.delete(0, all.indexOf(i.lowercase()) + i.length)
+                all.replace(0, all.indexOf(i.lowercase()) + i.length - 1, "")
+            } else all.replace(0, all.indexOf(i.lowercase()) + i.length, "")
         }
         all.clear()
         all.append(buff)
