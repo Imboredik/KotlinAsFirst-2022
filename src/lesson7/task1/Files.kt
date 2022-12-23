@@ -181,12 +181,13 @@ fun alignFileByWidth(inputName: String, outputName: String) {
     var maxLen = 0
     var count = 0
     val st = StringBuilder()
-    val line = mutableListOf<String>()
     val writer = File(outputName).bufferedWriter()
     File(inputName).forEachLine {
-        if (it.trim().length > maxLen) maxLen = it.trim().length
+        if (it.replace(Regex("(\\s)\\s+"), " ").trim().length
+            > maxLen) maxLen = it.trim().length
     }
     File(inputName).forEachLine {
+        val line = mutableListOf<String>()
         line.clear()
         st.clear()
         st.append(it.replace(Regex("(\\s)\\s+"), " ").trim())
