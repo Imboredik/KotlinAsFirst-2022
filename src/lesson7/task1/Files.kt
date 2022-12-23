@@ -2,7 +2,6 @@
 
 package lesson7.task1
 
-import lesson8.task1.Line
 import java.io.File
 import java.lang.StringBuilder
 
@@ -65,14 +64,14 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
  * Подчёркивание в середине и/или в конце строк значения не имеет.
  */
 fun deleteMarked(inputName: String, outputName: String) {
-    val writer = File(outputName).bufferedWriter()
-    for (line in File(inputName).readLines()) {
-        if (Regex("^(_.*)").find(line) == null) {
-            writer.write(line)
-            writer.newLine()
+    File(outputName).bufferedWriter().use {
+        for (line in File(inputName).readLines()) {
+            if (!line.startsWith("_")) {
+                it.write(line)
+                it.newLine()
+            }
         }
     }
-    writer.close()
 }
 
 /**
