@@ -102,6 +102,10 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
             fin[i] = fin[i]!! + 1
             if (i.length >= 2) {
                 all.replace(0, all.indexOf(i.lowercase()) + i.length - 1, "")
+                continue
+            }
+            if (i.length > 2) {
+                all.replace(0, all.indexOf(i.lowercase()) + i.length - 2, "")
             } else all.replace(0, all.indexOf(i.lowercase()) + i.length, "")
         }
         all.clear()
