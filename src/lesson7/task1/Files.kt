@@ -93,7 +93,7 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
             fin[i] = 0
         }
     }
-    File(inputName).forEachLine() {
+    File(inputName).forEachLine {
         all.append(it.lowercase() + "\n")
     }
     val buff = all.toString()
@@ -129,7 +129,31 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
  *
  */
 fun sibilants(inputName: String, outputName: String) {
-    TODO()
+    val store = mapOf<String, String>(
+        "Ы" to "И", "ы" to "и", "Я" to "А", "я" to "а",
+        "Ю" to "У", "ю" to "у"
+    )
+    File(outputName).bufferedWriter().use {
+        for (line in File(inputName).readLines()) {
+            var buff = line
+            if (Regex("""([ЖШ])[ыЫ]|([жш])[ыЫ]|([ЧЩШЖ])[яЯюЮ]|([чщшж])[яЯюЮ]""")
+                    .find(line)?.value != null
+            ) {
+                var a = Regex("""([ЖШ])[ыЫ]|([жш])[ыЫ]|([ЧЩШЖ])[яЯюЮ]|([чщшж])[яЯюЮ]""")
+                    .find(line)?.value
+                while (a != null) {
+                    buff = buff.replace(a, a[0] + store[a[1].toString()].toString())
+                    a = Regex("""([ЖШ])[ыЫ]|([жш])[ыЫ]|([ЧЩШЖ])[яЯюЮ]|([чщшж])[яЯюЮ]""")
+                        .find(buff)?.value
+                }
+                it.write(buff)
+                it.newLine()
+            } else {
+                it.write(line)
+                it.newLine()
+            }
+        }
+    }
 }
 
 /**
@@ -355,7 +379,108 @@ Suspendisse ~~et elit in enim tempus iaculis~~.
  * (Отступы и переносы строк в примере добавлены для наглядности, при решении задачи их реализовывать не обязательно)
  */
 fun markdownToHtmlSimple(inputName: String, outputName: String) {
-    TODO()
+    File(outputName).bufferedWriter().use {
+        it.write("<html>")
+        it.newLine()
+        it.write("<body>")
+        it.newLine()
+        it.write("<p>")
+        it.newLine()
+        var new = true
+        for (line in File(inputName).readLines()) {
+            var buff = ""
+            var ital = false
+            var lard = false
+            var cross = false
+            if (Regex("[*~]").find(line)?.value != null) {
+                if (!new) {
+                    it.write("<p>")
+                    new = true
+                }
+                for (i in line.split(" ")) {
+                    var j = i
+                    var bbb = Regex("""(\*+|~+)""").find(i)?.value
+                    while (bbb != null) {
+                        bbb = Regex("""(\*+|~+)""").find(j)?.value
+                        when (bbb) {
+                            "***" -> {
+                                if (!ital && !lard) {
+                                    j = j.replaceFirst(bbb, "<b><i>")
+                                    bbb = Regex("""(\*+|~+)""").find(j)?.value
+                                    ital = true
+                                    lard = true
+                                } else {
+                                    j = j.replaceFirst(bbb, "</b></i>")
+                                    bbb = Regex("""(\*+|~+)""").find(j)?.value
+                                    ital = false
+                                    lard = false
+                                }
+                            }
+
+                            "**" -> {
+                                if (!lard) {
+                                    j = j.replaceFirst(bbb, "<b>")
+                                    bbb = Regex("""(\*+|~+)""").find(j)?.value
+                                    lard = true
+                                } else {
+                                    j = j.replaceFirst(bbb, "</b>")
+                                    bbb = Regex("""(\*+|~+)""").find(j)?.value
+                                    lard = false
+                                }
+                            }
+
+                            "*" -> {
+                                if (!ital) {
+                                    j = j.replaceFirst(bbb, "<i>")
+                                    bbb = Regex("""(\*+|~+)""").find(j)?.value
+                                    ital = true
+                                } else {
+                                    j = j.replaceFirst(bbb, "</i>")
+                                    bbb = Regex("""(\*+|~+)""").find(j)?.value
+                                    ital = false
+                                }
+                            }
+
+                            "~~" -> {
+                                if (!cross) {
+                                    j = j.replaceFirst(bbb, "<s>")
+                                    bbb = Regex("""(\*+|~+)""").find(j)?.value
+                                    cross = true
+                                } else {
+                                    j = j.replaceFirst(bbb, "</s>")
+                                    bbb = Regex("""(\*+|~+)""").find(j)?.value
+                                    cross = false
+                                }
+                            }
+
+                        }
+                    }
+                    buff += "$j "
+                    //if (Regex("""(\*+|~+)""").find(i)?.value == null) buff += "$i "
+                    //it.write(line)
+                    //it.newLine()
+                }
+                it.write(buff)
+                it.newLine()
+            } else {
+                if (line.isEmpty() && new) {
+                    it.write("</p>")
+                    it.newLine()
+                    new = false
+                } else {
+                    it.write(line)
+                    it.newLine()
+                }
+            }
+        }
+        if (new) {
+            it.write("</p>")
+            it.newLine()
+        }
+        it.write("</body>")
+        it.newLine()
+        it.write("</html>")
+    }
 }
 
 /**
