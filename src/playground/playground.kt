@@ -296,13 +296,14 @@ fun twitch(inputName: String): Any {
             list.add(a[j].toInt())
         }
         var last = list.last()
-        if (minInHour != 0.0) last = 0
-        list.removeLast()
+        if (minInHour == 0.0) {
+            last = 0
+        } else list.removeLast()
         if (b == null || minInHour == null || hour == null || watch == null) exp(1)
         if (all[b] != null) {
-            all[b!!] = (all[b]!! + list.sum() + last)
+            all[b!!] = (all[b]!! + list.sum() + (last * minInHour!!)).toInt()
         } else {
-            all[b!!] = (0 + list.sum() + last)       //написаь экс на ноль тайма
+            all[b!!] = (0 + list.sum() + last * minInHour!!).toInt()     //написаь экс на ноль тайма
         }
     }
     val buff = all.entries.sortedBy { it.key }.sortedByDescending { it.value }
