@@ -452,13 +452,9 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
                                     cross = false
                                 }
                             }
-
                         }
                     }
                     buff += "$j "
-                    //if (Regex("""(\*+|~+)""").find(i)?.value == null) buff += "$i "
-                    //it.write(line)
-                    //it.newLine()
                 }
                 it.write(buff)
                 it.newLine()
