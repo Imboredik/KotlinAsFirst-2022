@@ -39,6 +39,13 @@ class Tests {
         )
     }
 
+    @Test
+    fun twitch() {
+        assertEquals(
+            ("Buster"), // Что ожидаете
+            playground.twitch("input/twitch.txt")
+        )
+    }
 
 }
 

@@ -281,3 +281,30 @@ fun race(inputName: String): Any {
 * то всё ок, выводим список
 * Если же не в одном мапе не было соответствий кидаем искличение или то, что от нас требуют
  */
+
+fun twitch(inputName: String): Any {
+    val all = mutableMapOf<String, Int>()
+    File(inputName).forEachLine {
+        val b = Regex("""[\wА-Яа-я_\-\d]+(?=:)""").find(it)?.value
+        val minInHour = Regex("""\d+(?=m,)""").find(it)?.value?.toInt()?.div(60.0)
+        val hour = Regex("""(?<=:\s)\d+(?=h)""").find(it)?.value?.toDouble()
+        val watch = Regex("""\d+$""").find(it)?.value?.toInt()
+        val a = it.split(", ").toMutableList()
+        a.removeAt(0)
+        val list = mutableListOf<Int>()
+        for (j in a.indices) {
+            list.add(a[j].toInt())
+        }
+        var last = list.last()
+        if (minInHour != 0.0) last = 0
+        list.removeLast()
+        if (b == null || minInHour == null || hour == null || watch == null) exp(1)
+        if (all[b] != null) {
+            all[b!!] = (all[b]!! + list.sum() + last)
+        } else {
+            all[b!!] = (0 + list.sum() + last)       //написаь экс на ноль тайма
+        }
+    }
+    val buff = all.entries.sortedBy { it.key }.sortedByDescending { it.value }
+    return buff
+}
